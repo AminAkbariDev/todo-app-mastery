@@ -1,5 +1,4 @@
 import * as React from "react";
-import { connect } from "react-redux";
 
 import Hero from "../components/Hero/Hero";
 import TodosBox from "../components/TodosBox/TodosBox";
@@ -13,8 +12,8 @@ function Todo({ show, todoInfo }) {
   return (
     <main>
       <Hero />
-      <Modal edit={show}>
-        <EditTodo todoInfo={todoInfo} />
+      <Modal>
+        <EditTodo />
       </Modal>
       <Container sx={{ py: 8 }} maxWidth="md">
         <TodosBox />
@@ -23,11 +22,4 @@ function Todo({ show, todoInfo }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    show: state.editTodo.show,
-    todoInfo: state.todos.text,
-  };
-};
-
-export default connect(mapStateToProps)(Todo);
+export default Todo;

@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import "./Modal.css";
 
 function Modal(props) {
@@ -15,4 +16,10 @@ function Modal(props) {
   );
 }
 
-export default Modal;
+const mapStateToProps = (state) => {
+  return {
+    edit: state.editTodo.show,
+  };
+};
+
+export default connect(mapStateToProps)(Modal);

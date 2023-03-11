@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { connect } from "react-redux";
 import Button from "@mui/material/Button";
 
 import "./EditTodo.css";
@@ -26,4 +26,10 @@ function EditTodo({ onSaveChange, todoInfo }) {
   );
 }
 
-export default EditTodo;
+const mapStateToProps = (state) => {
+  return {
+    selectedTodoId: state.editTodo.id,
+  };
+};
+
+export default connect(mapStateToProps)(EditTodo);

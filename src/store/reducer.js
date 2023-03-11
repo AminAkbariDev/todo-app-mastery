@@ -18,6 +18,7 @@ const reducer = (state = initialState, action) => {
       let completedTodo = state.todos.find((td) => action.id === td.id);
       const bool = completedTodo.done;
       completedTodo.done = !bool;
+      console.log('klnashbdkjlh')
       return {
         todos: [...state.todos],
       };
