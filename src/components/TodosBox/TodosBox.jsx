@@ -31,6 +31,7 @@ function TodosBox({ todo, onRemove, onComplete, onEdit }) {
               <Typography
                 style={{
                   textDecorationLine: !td.done ? "none" : "line-through",
+                  lineBreak: "anywhere",
                 }}
               >
                 {td.text}
