@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 
 import "./EditTodo.css";
 
-function EditTodo({ onSaveChange, todoInfo }) {
+function EditTodo({ onSaveChange, todoInfo,modalClose }) {
   const [todo, setTodo] = useState(todoInfo);
   return (
     <div className="box">
@@ -14,7 +14,7 @@ function EditTodo({ onSaveChange, todoInfo }) {
         onChange={(e) => setTodo(e.target.value)}
       />
       <Button
-        onClick={onSaveChange}
+        onClick={modalClose}
         sx={{ mt: 3 }}
         color="info"
         variant="contained"
@@ -32,4 +32,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(EditTodo);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    modalClose: () => dispatch({type: "CLOSE_MODAL"})
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(EditTodo);

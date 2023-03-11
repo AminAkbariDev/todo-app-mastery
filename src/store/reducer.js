@@ -29,6 +29,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         editTodo: { ...newEditTodo },
       };
+
+    case "CLOSE_MODAL":
+      const closedShow = { show: false, id: state.editTodo.id };
+      return {
+        ...state,
+        editTodo: { ...closedShow },
+      };
   }
 
   return state;
