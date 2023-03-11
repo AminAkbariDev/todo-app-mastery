@@ -1,0 +1,23 @@
+.box {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 10px 30px 10px;
+  border: 2px solid #b5dfff;
+  font-family: Roboto;
+  font-size: medium;
+  border-radius: 5px;
+  color: #111;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.3s ease-out;
+}
+
+.input:hover,
+input:focus{
+  border: 2px solid #01579B;
+
+}
