@@ -18,14 +18,17 @@ const reducer = (state = initialState, action) => {
       let completedTodo = state.todos.find((td) => action.id === td.id);
       const bool = completedTodo.done;
       completedTodo.done = !bool;
-      console.log('klnashbdkjlh')
       return {
         todos: [...state.todos],
       };
     case "EDIT_TODO":
-      const bool2 = state.editTodo.show;
-      state.editTodo.show = !bool2;
-      state.editTodo.id = action.id;
+      const newShow = true;
+      const newId = action.id;
+      const newEditTodo = { show: newShow, id: newId };
+      return {
+        ...state,
+        editTodo: { ...newEditTodo },
+      };
   }
 
   return state;

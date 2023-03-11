@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "./Modal.css";
 
-function Modal(props) {
+function Modal({ edit, children }) {
   return (
     <div
       className="modal"
       style={{
-        transform: props.edit ? "translateY(0)" : "translateY(-100vh)",
-        opacity: props.edit ? "1" : "0",
+        transform: edit ? "translateY(0)" : "translateY(-100vh)",
+        opacity: edit ? "1" : "0",
       }}
     >
-      {props.children}
+      {children}
     </div>
   );
 }
