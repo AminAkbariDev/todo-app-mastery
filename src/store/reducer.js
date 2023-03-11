@@ -1,6 +1,7 @@
 const initialState = {
   todos: [{ id: 1, text: "this is a test text to fill this up.", done: false }],
   editTodo: { show: false, id: null },
+  selectedTodoText: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,9 +26,13 @@ const reducer = (state = initialState, action) => {
       const newShow = true;
       const newId = action.id;
       const newEditTodo = { show: newShow, id: newId };
+      state.editTodo = { ...newEditTodo };
+      const selectedTodoinfo = state.todos.find(
+        (td) => td.id === state.editTodo.id
+      ).text;
       return {
         ...state,
-        editTodo: { ...newEditTodo },
+        selectedTodoText: selectedTodoinfo,
       };
 
     case "CLOSE_MODAL":
@@ -35,6 +40,23 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         editTodo: { ...closedShow },
+      };
+
+    case "CHANGE_TODO":
+      return {
+        ...state,
+        selectedTodoText: action.text,
+      };
+
+    case "SAVE_TODO":
+      const selectedId = state.editTodo.id;
+      const selectedTodo = state.todos.find((td) => td.id === selectedId);
+      selectedTodo.text = state.selectedTodoText;
+      const closeShow = { show: false, id: state.editTodo.id };
+      return {
+        ...state,
+        todos: [...state.todos],
+        editTodo: { ...closeShow },
       };
   }
 
