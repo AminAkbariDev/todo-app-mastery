@@ -6,15 +6,24 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    
     case "ADD_TODO":
+      if (localStorage.length != 0) {
+        const prevTodos = localStorage.getItem("todo");
+        localStorage.setItem("todo", [...prevTodos, action.payload]);
+      } else {
+        localStorage.setItem("todo", [action.payload]);
+      }
       return {
         todos: [...state.todos, action.payload],
       };
+
     case "DELETE_TODO":
       const newList = state.todos.filter((todo) => action.id !== todo.id);
       return {
         todos: newList,
       };
+
     case "COMPLETE_TODO":
       let completedTodo = state.todos.find((td) => action.id === td.id);
       const bool = completedTodo.done;
@@ -57,6 +66,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         todos: [...state.todos],
         editTodo: { ...closeShow },
+      };
+
+    case "READ_LOCAL":
+      return {
+        ...state,
+        todos: [...state.todos, ...action.payload],
       };
   }
 

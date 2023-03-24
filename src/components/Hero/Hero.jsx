@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import uuid from "react-uuid";
 
@@ -10,6 +10,13 @@ import Container from "@mui/material/Container";
 
 function Hero(props) {
   const [todo, setTodo] = useState("");
+
+  useEffect(() => {
+    const todos = localStorage.getItem("todo");
+    if (todos) {
+      props.postFromLocal(todos);
+    }
+  }, []);
 
   return (
     <div>
@@ -77,6 +84,12 @@ const mapDispatchToProps = (dispatch) => {
         payload: { id: uuid(), text: value, done: false },
       });
       setTodo("");
+    },
+    postFromLocal: (array) => {
+      dispatch({
+        type: "READ_LOCAL",
+        payload: array,
+      });
     },
   };
 };

@@ -8,7 +8,7 @@ import Modal from "../UI/Modal/Modal";
 import "./Todo.css";
 import EditTodo from "../components/EditTodo/EditTodo";
 
-function Todo({ show, todoInfo }) {
+function Todo() {
   return (
     <main>
       <Hero />
