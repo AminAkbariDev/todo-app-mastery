@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import Button from "@mui/material/Button";
@@ -11,7 +11,31 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-function TodosBox({ todo, onRemove, onComplete, onEdit }) {
+function TodosBox({ todo, onRemove, onComplete, onEdit, fetchLocal }) {
+  //run once when the app starts
+  useEffect(() => {
+    getLocalTodos();
+  }, []);
+
+  //USE EFFECT
+  useEffect(() => {
+    saveLocalTodos();
+  }, [todo]);
+
+  // Save to Local
+  const saveLocalTodos = () => {
+    localStorage.setItem("todos", JSON.stringify(todo));
+  };
+
+  const getLocalTodos = () => {
+    if (localStorage.getItem("todos") === null)
+      localStorage.setItem("todos", JSON.stringify([]));
+    else {
+      let todoLocal = JSON.parse(localStorage.getItem("todos"));
+      fetchLocal(todoLocal)
+    }
+  };
+
   return (
     <Grid container spacing={5}>
       {todo.map((td) => (
@@ -82,6 +106,7 @@ const mapDispatchToProps = (dispatch) => {
     onRemove: (id) => dispatch({ type: "DELETE_TODO", id }),
     onComplete: (id) => dispatch({ type: "COMPLETE_TODO", id }),
     onEdit: (id) => dispatch({ type: "EDIT_TODO", id }),
+    fetchLocal: (todos) => dispatch({type: "FETCH_LOCAL", payload: todos }),
   };
 };
 

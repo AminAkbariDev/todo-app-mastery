@@ -1,28 +1,23 @@
 const initialState = {
-  todos: [{ id: 1, text: "this is a test text to fill this up.", done: false }],
+  todos: [],
   editTodo: { show: false, id: null },
   selectedTodoText: "",
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    
     case "ADD_TODO":
-      if (localStorage.length != 0) {
-        const prevTodos = localStorage.getItem("todo");
-        localStorage.setItem("todo", [...prevTodos, action.payload]);
-      } else {
-        localStorage.setItem("todo", [action.payload]);
-      }
       return {
         todos: [...state.todos, action.payload],
       };
+      break;
 
     case "DELETE_TODO":
       const newList = state.todos.filter((todo) => action.id !== todo.id);
       return {
         todos: newList,
       };
+      break;
 
     case "COMPLETE_TODO":
       let completedTodo = state.todos.find((td) => action.id === td.id);
@@ -31,6 +26,8 @@ const reducer = (state = initialState, action) => {
       return {
         todos: [...state.todos],
       };
+      break;
+
     case "EDIT_TODO":
       const newShow = true;
       const newId = action.id;
@@ -43,6 +40,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         selectedTodoText: selectedTodoinfo,
       };
+      break;
+
 
     case "CLOSE_MODAL":
       const closedShow = { show: false, id: state.editTodo.id };
@@ -50,12 +49,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         editTodo: { ...closedShow },
       };
+      break;
 
     case "CHANGE_TODO":
       return {
         ...state,
         selectedTodoText: action.text,
       };
+      break;
 
     case "SAVE_TODO":
       const selectedId = state.editTodo.id;
@@ -67,12 +68,15 @@ const reducer = (state = initialState, action) => {
         todos: [...state.todos],
         editTodo: { ...closeShow },
       };
+      break;
 
-    case "READ_LOCAL":
+    case "FETCH_LOCAL":
       return {
-        ...state,
-        todos: [...state.todos, ...action.payload],
+        todos: [...action.payload],
+        ...state
       };
+      break;
+
   }
 
   return state;

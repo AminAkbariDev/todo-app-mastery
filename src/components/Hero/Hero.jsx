@@ -11,13 +11,6 @@ import Container from "@mui/material/Container";
 function Hero(props) {
   const [todo, setTodo] = useState("");
 
-  useEffect(() => {
-    const todos = localStorage.getItem("todo");
-    if (todos) {
-      props.postFromLocal(todos);
-    }
-  }, []);
-
   return (
     <div>
       <Box
@@ -85,12 +78,7 @@ const mapDispatchToProps = (dispatch) => {
       });
       setTodo("");
     },
-    postFromLocal: (array) => {
-      dispatch({
-        type: "READ_LOCAL",
-        payload: array,
-      });
-    },
+
   };
 };
 
