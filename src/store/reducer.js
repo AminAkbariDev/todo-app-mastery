@@ -42,7 +42,6 @@ const reducer = (state = initialState, action) => {
       };
       break;
 
-
     case "CLOSE_MODAL":
       const closedShow = { show: false, id: state.editTodo.id };
       return {
@@ -71,12 +70,12 @@ const reducer = (state = initialState, action) => {
       break;
 
     case "FETCH_LOCAL":
+      console.log(action.payload);
       return {
-        todos: [...action.payload],
-        ...state
+        ...state,
+        todos: [...state.todos, ...action.payload],
       };
       break;
-
   }
 
   return state;

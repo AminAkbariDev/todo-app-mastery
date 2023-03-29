@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import uuid from "react-uuid";
 
 import Button from "@mui/material/Button";
@@ -10,6 +10,16 @@ import Container from "@mui/material/Container";
 
 function Hero(props) {
   const [todo, setTodo] = useState("");
+
+  //run once when the app starts
+  useEffect(() => {
+    getLocalTodos();
+  }, []);
+
+  const getLocalTodos = () => {
+    let todoLocal = JSON.parse(localStorage.getItem("todos"));
+    props.fetchLocal(todoLocal);
+  };
 
   return (
     <div>
@@ -78,7 +88,7 @@ const mapDispatchToProps = (dispatch) => {
       });
       setTodo("");
     },
-
+    fetchLocal: (todos) => dispatch({ type: "FETCH_LOCAL", payload: todos }),
   };
 };
 
